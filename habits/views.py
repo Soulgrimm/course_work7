@@ -13,15 +13,13 @@ class HabitCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        new_habit = serializer.save()
-        new_habit.is_author = self.request.user
+        new_habit = serializer.save(author=self.request.user)
         new_habit.save()
 
 
 class HabitListView(generics.ListAPIView):
     serializer_class = HabitSerializer
-    queryset = Habit.objects.all()
-    permission_classes = [IsAuthenticated]
+    queryset = Habit.objects.filter(sign_publication=True)
     pagination_class = HabitPaginator
 
 
@@ -31,7 +29,7 @@ class HabitAuthorListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsAuthor]
 
     def get_queryset(self):
-        return Habit.objects.filter(is_author=self.request.user)
+        return Habit.objects.filter(author=self.request.user)
 
 
 # class HabitRetrieveView(generics.RetrieveAPIView):

@@ -10,9 +10,9 @@ class HabitSerializer(serializers.ModelSerializer):
         model = Habit
         fields = '__all__'
         validators = [
-            ChooseRewardAssociatedHabit(field_1='associated_habit', field_2='reward'),
-            LeadTimeHabit(field='complete_time'),
-            IncludeHabitWithSignPleasant(field_1='associated_habit', field_2='sign_pl_habit'),
-            AssociatedHabitValidator(field_1='sign_pl_habit', field_2='associated_habit', field_3='reward'),
-            CheckPerformHabit(field='periodicity')
+            ChooseRewardAssociatedHabit(associated_habit='associated_habit', reward='reward'),
+            LeadTimeHabit(complete_time='complete_time'),
+            IncludeHabitWithSignPleasant(associated_habit='associated_habit', sign_pl_habit='sign_pl_habit'),
+            AssociatedHabitValidator(sign_pl_habit='sign_pl_habit', associated_habit='associated_habit', reward='reward'),
+            CheckPerformHabit(periodicity='periodicity')
         ]

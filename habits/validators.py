@@ -1,13 +1,11 @@
-from datetime import timedelta
-
 from rest_framework.serializers import ValidationError
 
 
 class ChooseRewardAssociatedHabit:
 
-    def __init__(self, field_1, field_2):
-        self.field1 = field_1
-        self.field2 = field_2
+    def __init__(self, associated_habit, reward):
+        self.field1 = associated_habit
+        self.field2 = reward
 
     def __call__(self, value):
         associated_habit = dict(value).get(self.field1)
@@ -19,11 +17,10 @@ class ChooseRewardAssociatedHabit:
 
 class LeadTimeHabit:
 
-    def __init__(self, field):
-        self.field = field
+    def __init__(self, complete_time):
+        self.field = complete_time
 
     def __call__(self, value):
-
         complete_time = dict(value).get(self.field)
 
         if complete_time and complete_time > 120:
@@ -32,9 +29,9 @@ class LeadTimeHabit:
 
 class IncludeHabitWithSignPleasant:
 
-    def __init__(self, field_1, field_2):
-        self.field1 = field_1
-        self.field2 = field_2
+    def __init__(self, associated_habit, sign_pl_habit):
+        self.field1 = associated_habit
+        self.field2 = sign_pl_habit
 
     def __call__(self, value):
         associated_habit = dict(value).get(self.field1)
@@ -46,10 +43,10 @@ class IncludeHabitWithSignPleasant:
 
 class AssociatedHabitValidator:
 
-    def __init__(self, field_1, field_2, field_3):
-        self.field1 = field_1
-        self.field2 = field_2
-        self.field3 = field_3
+    def __init__(self, sign_pl_habit, associated_habit, reward):
+        self.field1 = sign_pl_habit
+        self.field2 = associated_habit
+        self.field3 = reward
 
     def __call__(self, value):
         sign_pl_habit = dict(value).get(self.field1)
@@ -62,8 +59,8 @@ class AssociatedHabitValidator:
 
 class CheckPerformHabit:
 
-    def __init__(self, field):
-        self.field = field
+    def __init__(self, periodicity):
+        self.field = periodicity
 
     def __call__(self, value):
         periodicity = dict(value).get(self.field)

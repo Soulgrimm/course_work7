@@ -1,5 +1,4 @@
 from django.core.management import BaseCommand
-from django.conf import settings
 from users.models import User
 
 
